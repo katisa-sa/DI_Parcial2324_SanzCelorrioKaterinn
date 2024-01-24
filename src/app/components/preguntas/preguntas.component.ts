@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { GestionStorageService } from 'src/app/services/gestion-storage.service';
 //Añadir los imports necesarios
 
 @Component({
@@ -23,7 +27,7 @@ export class PreguntasComponent implements OnInit {
   //Gestionará el visualizado del botón Volver a Jugar.
   mostrarBotonesAdicionales: boolean = false;
 
-  constructor() {}
+  constructor( public leerArchivo: HttpClient, gestionAlmacen:GestionStorageService, alerta: AlertController) {}
 
   ngOnInit() {
 
@@ -31,9 +35,11 @@ export class PreguntasComponent implements OnInit {
 
   private cargarPreguntas() {
     //Llamamos al API mediante un observable
-    
+    let respPreguntas: Observable<Preguntas> = this.leerArchivo.get<Preguntas>("https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple");
     //Suscripción al observable
- 
+    respPreguntas.subscribe(datos=>{
+      this.listaPreguntas.push(...datos)
+    })
       //Recorremos la lista de preguntas
 
         /* Mezclamos el orden del array:
@@ -80,7 +86,7 @@ export class PreguntasComponent implements OnInit {
 
   // Método que gestiona la lógica para guardar resultados cuando se pulse dicho botón
   guardarResultados() {
-
+    
   }
 
   /* Una vez respondido todas las preguntas y al pulsar Guardar Resultados, 
@@ -111,5 +117,25 @@ export class PreguntasComponent implements OnInit {
   //El botón "Guardar Resultados" estará disabled por defecto, este método gestionará el disabled(true/false) del botón
   comprobarGuardarResultados() {
 
+  }
+
+  async alertaBoton(){
+    const alert = await this.alertaBoton.create({
+
+        text: 'Cancelar',
+        role: 'cancelar',
+        handler: () => {
+          console.log('Cancelado');
+        },
+      },
+      {
+        text: 'Volver a jugar',
+        role: 'confirm',
+        handler: () => {
+          console.log('Alert confirmed');
+        },
+    })
+      
+     await this.alertaBoton.present();
   }
 }

@@ -3,7 +3,17 @@
     <ion-title>
       TRIVIA
     </ion-title>
-    <!-- Añadir ion-segment-->
+    <ion-segment value="default">
+      <ion-segment-button value="default">
+        <ion-label>Introduccion</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="segment">
+        <ion-label>Preguntas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="segment">
+        <ion-label>Ranking</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
@@ -24,9 +34,13 @@
   -->
 
 <ion-content class="ion-padding" [fullscreen]="true">
-  <!-- Mediante el ngFor leemos pregunta por pregunta. 
+  <!-- Mediante el ngFor leemos pregunta por pregunta.
+    
   -- Controlamos el index de cada pregunta, para realizar diferentes gestiones con este. 
   -->
+  <ion-list *ngFor="let pregunta of listaPreguntas">
+    <ion-item>{{pregunta.results.question}}</ion-item>
+  </ion-list>
 <ion-card>
   <ion-card-header>
     <ion-card-title></ion-card-title>

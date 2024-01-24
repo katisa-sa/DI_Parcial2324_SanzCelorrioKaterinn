@@ -9,6 +9,10 @@ export class HomePage {
 
   // Declaramos las variables necesarias
 
+  titulo:String ="Trivial";
+  descripcion: String ="Bienvenido al trivial app";
+  url: String = ".\src\assets\icon\trivia.jpg";
+
   constructor() {}
 
   //inicializamos el segmento con su valor inicial

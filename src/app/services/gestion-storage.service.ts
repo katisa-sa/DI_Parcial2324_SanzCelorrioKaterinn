@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
-import { Preguntas } from "./../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root'

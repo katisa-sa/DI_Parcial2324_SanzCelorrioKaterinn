@@ -7,6 +7,7 @@
   </ion-card-header>
 
   <ion-card-content>
+    <ion-list *ngFor="let pregunta of listaPreguntas">
     <!-- Por cada pregunta, mostramos las posibles respuestas de forma aleatoria.
       -- Comprobamos si el array botonSeleccionadoPreguntaIndex incluye los index de los botones seleccionados,
       -- para poner todas las respuestas de esas pregunta como disabled
@@ -26,13 +27,13 @@
     <!-- El botón guardar resultados estará deshabilitado hasta que se hayan respondido todas las preguntas.
       -- Se puede hacer uso de la etiqueta [disabled]
       -->
-    <ion-button>
+    <ion-button (click)="guardarResultados()">
       Guardar Resultados
     </ion-button>
   </ion-col>
   <!-- El botón volver a jugar estará deshabilitado hasta que se haya pulsado el botón Guardar Resultados-->
   <ion-col  size="6">
-    <ion-button>
+    <ion-button (click)="volverAJugar()">
       Volver a jugar!
     </ion-button>
   </ion-col>
