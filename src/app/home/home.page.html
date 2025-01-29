@@ -3,14 +3,14 @@
     <ion-title>
       TRIVIA
     </ion-title>
-    <ion-segment value="default">
-      <ion-segment-button value="default">
+    <ion-segment [(ngModel)]="selectedButton">
+      <ion-segment-button value="introduccion">
         <ion-label>Introduccion</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="segment">
+      <ion-segment-button value="preguntas">
         <ion-label>Preguntas</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="segment">
+      <ion-segment-button value="ranking">
         <ion-label>Ranking</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -18,8 +18,20 @@
 </ion-header>
 
 <ion-content class="ion-padding" [fullscreen]="true">
-  <!-- Gestionar el control para mostrar un componente u otro. 
-    -- Utilizaremos un ion-card por cada componente.
-    -->
+  <div *ngIf="selectedButton === 'default'">
+    <app-introduccion></app-introduccion>
+  </div>
+</ion-content>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div *ngIf="selectedButton === 'preguntas'">
+    <app-preguntas></app-preguntas>
+  </div>
+</ion-content>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div *ngIf="selectedButton === 'ranking'">
+    <app-ranking></app-ranking>
+  </div>
 </ion-content>
 

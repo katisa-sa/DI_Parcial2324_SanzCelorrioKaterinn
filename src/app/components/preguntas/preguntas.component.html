@@ -1,13 +1,13 @@
 <!-- Mediante el ngFor leemos pregunta por pregunta. 
   -- Controlamos el index de cada pregunta, para realizar diferentes gestiones con este. 
   -->
-<ion-card>
+<ion-card *ngFor="let pregunta of listaPreguntas; let i = index">
   <ion-card-header>
-    <ion-card-title></ion-card-title>
+    <ion-card-title>{{pregunta.question}}</ion-card-title>
   </ion-card-header>
 
   <ion-card-content>
-    <ion-list *ngFor="let pregunta of listaPreguntas">
+    <ion-list *ngFor="let respuesta of pregunta.respuestasAleatorias; let j = index">
     <!-- Por cada pregunta, mostramos las posibles respuestas de forma aleatoria.
       -- Comprobamos si el array botonSeleccionadoPreguntaIndex incluye los index de los botones seleccionados,
       -- para poner todas las respuestas de esas pregunta como disabled
@@ -16,9 +16,13 @@
       -- dependiendo de si la respuesta está en el array respuestasSeleccionadas.
       -- "boton-seleccionado" está declarado en preguntas.component.scss
       -->
-    <ion-button>
-
+    <ion-button
+      [disabled]="botonSeleccionadoPreguntaIndex.includes(i)"
+      [ngClass]="{'boton-seleccionado': respuestasSeleccionadas[i] === respuesta}"
+      (click)="seleccionarRespuesta(respuesta,i)">
+      {{respuesta}}
     </ion-button>
+    </ion-list>
   </ion-card-content>
 </ion-card>
 <!-- Botonera -->
@@ -27,13 +31,17 @@
     <!-- El botón guardar resultados estará deshabilitado hasta que se hayan respondido todas las preguntas.
       -- Se puede hacer uso de la etiqueta [disabled]
       -->
-    <ion-button (click)="guardarResultados()">
+    <ion-button 
+    [disabled]="comprobarGuardarResultados()"
+    (click)="guardarResultados()">
       Guardar Resultados
     </ion-button>
   </ion-col>
   <!-- El botón volver a jugar estará deshabilitado hasta que se haya pulsado el botón Guardar Resultados-->
   <ion-col  size="6">
-    <ion-button (click)="volverAJugar()">
+    <ion-button 
+    [disabled]="comprobarVolverAJugar()"
+    (click)="alertaBoton()">
       Volver a jugar!
     </ion-button>
   </ion-col>

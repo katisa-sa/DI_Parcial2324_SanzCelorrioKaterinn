@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class HomePage {
 
   // Declaramos las variables necesarias
-
+  selectedButton: String = "introduccion";
   titulo:String ="Trivial";
   descripcion: String ="Bienvenido al trivial app";
   url: String = ".\src\assets\icon\trivia.jpg";
@@ -18,5 +18,8 @@ export class HomePage {
   //inicializamos el segmento con su valor inicial
 
   //Gestionamos el cambio de segmentos
+  onSegmentChange(event: any){
+    this.selectedButton = event.detail.value;
+  }
 
 }
